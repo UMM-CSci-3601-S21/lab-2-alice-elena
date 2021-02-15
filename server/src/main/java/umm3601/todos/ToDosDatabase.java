@@ -3,6 +3,7 @@ package umm3601.todos;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,13 +95,21 @@ import io.javalin.http.BadRequestResponse;
         filteredToDos = filterToDosByCategory(filteredToDos, targetCategory);
       }
 
+      //Filter sort/order todos by particular attribute (still testing)
+      if (queryParams.containsKey("orderBy")) {
+        String targetOrderBy = queryParams.get("orderBy").get(0);
+        filteredToDos = sortToDosByOrderBy(filteredToDos, targetOrderBy);
+      }
+
       return filteredToDos;
     }
 
     /**
      * Get an array of all the todos having the target status.
-     * (still testing)
      *
+     * @param todos           the list of todos to filter by target status
+     * @param newTargetStatus the boolean of targetStatus
+     * @return                an array of all the todos from the given list after filtering
      */
     public ToDos[] filterToDosByStatus(ToDos[] todos, Boolean newTargetStatus) {
       return Arrays.stream(todos).filter(x -> x.status.equals(newTargetStatus)).toArray(ToDos[]::new);
@@ -120,7 +129,7 @@ import io.javalin.http.BadRequestResponse;
     /**
      * Get an array of all the todos contains the target body.
      *
-     * @param todos           the list of todos to filter by limit
+     * @param todos           the list of todos to filter by body
      * @param targetBody      the target context we look for in body
      * @return                an array of all the todos from the given list after
      */
@@ -132,7 +141,7 @@ import io.javalin.http.BadRequestResponse;
      * Get an array of all the todos having the target owner.
      *
      * @param todos       the list of todos to filter by owner
-     * @param targetOwner the target company to look for
+     * @param targetOwner the target owner to look for
      * @return            an array of all the todos from the given list that have
      *                    target owner.
      */
@@ -150,5 +159,33 @@ import io.javalin.http.BadRequestResponse;
      */
     public ToDos[] filterToDosByCategory(ToDos[] todos, String targetCategory) {
       return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(ToDos[]::new);
+    }
+
+    /**
+     * Get an array of all the todos having the filter orderBy.
+     *
+     * @param todos           the list of todos to be sorted by orderBy
+     * @param targetOrderBy   the specified field will be used to sort all todos
+     * @return                an array of all the todos from the given list
+     *                        in alphabetical order sorted by orderBy.
+     */
+    public ToDos[] sortToDosByOrderBy(ToDos[] todos, String targetOrderBy) {
+        ToDos[] mySorted = Arrays.stream(todos).sorted((h1,h2)->{
+          if (targetOrderBy.equals("owner")) {
+            return h1.owner.compareTo(h2.owner);
+          }
+          if (targetOrderBy.equals("body")) {
+            return h1.body.compareTo(h2.body);
+          }
+          if (targetOrderBy.equals("category")) {
+            return h1.category.compareTo(h2.category);
+          }
+          else if (targetOrderBy.equals("status")) {
+            return h1.status.compareTo(h2.status);
+          } else {
+            return 0;
+          }
+        }).toArray(ToDos[]::new);
+        return mySorted;
     }
  }
