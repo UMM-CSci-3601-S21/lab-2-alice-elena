@@ -64,7 +64,7 @@ import io.javalin.http.BadRequestResponse;
         filteredToDos = filterToDosByStatus(filteredToDos, newTargetStatus);
       }
 
-      //Filter limit is defined
+      //Limit request
       if (queryParams.containsKey("limit")) {
         String limitParam = queryParams.get("limit").get(0);
         try {
@@ -74,6 +74,13 @@ import io.javalin.http.BadRequestResponse;
           throw new BadRequestResponse("Specified limit '" + limitParam + "' can't be parsed to an integer");
         }
       }
+
+      //Filter body is defined
+      if (queryParams.containsKey("contains")) {
+        String targetBody = queryParams.get("contains").get(0);
+        filteredToDos = filterToDosByBody(filteredToDos, targetBody);
+      }
+
 
       //Filter owner is defined
       if (queryParams.containsKey("owner")) {
@@ -91,20 +98,8 @@ import io.javalin.http.BadRequestResponse;
     }
 
     /**
-     * Get an array of all the todos having target body.
-     *
-     * @param todos         the list of todos to filter by body
-     * @param targetBody    the target body to look for
-     * @return              an array of all the todos from the given list
-     *                      that have the target body.
-     */
-    // public ToDos[] filterToDosByBody(ToDos[] todos, String targetBody) {
-    //   return Arrays.stream(todos).filter(x -> x.body.contains(targetBody)).toArray(ToDos[]::new);
-    // }
-
-    /**
      * Get an array of all the todos having the target status.
-     *
+     * (still testing)
      *
      */
     public ToDos[] filterToDosByStatus(ToDos[] todos, Boolean newTargetStatus) {
@@ -120,6 +115,17 @@ import io.javalin.http.BadRequestResponse;
      */
     public ToDos[] filterToDosByLimit(ToDos[] todos, Integer targetLimit) {
       return Arrays.stream(todos).limit(targetLimit).toArray(ToDos[]::new);
+    }
+
+    /**
+     * Get an array of all the todos contains the target body.
+     *
+     * @param todos           the list of todos to filter by limit
+     * @param targetBody      the target context we look for in body
+     * @return                an array of all the todos from the given list after
+     */
+    public ToDos[] filterToDosByBody(ToDos[] todos, String targetBody) {
+      return Arrays.stream(todos).filter(x -> x.body.contains(targetBody)).toArray(ToDos[]::new);
     }
 
     /**
