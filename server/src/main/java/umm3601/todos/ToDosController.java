@@ -6,7 +6,6 @@ import io.javalin.http.NotFoundResponse;
 /**
  * ToDos Controller will manage requests for info about ToDos.
  */
-
 public class ToDosController {
 
   private ToDosDatabase database;
@@ -28,14 +27,14 @@ public class ToDosController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getToDos(Context ctx) {
+  public void getToDo(Context ctx) {
     String id = ctx.pathParam("id", String.class).get();
-    ToDos todo = database.getToDos(id);
-    if (todo != null) {
-      ctx.json(user);
+    ToDos toDo = database.getToDo(id);
+    if (toDo != null) {
+      ctx.json(toDo);
       ctx.status(201);
     } else {
-      throw new NotFoundResponse(" No to do with id " + id + " was found.");
+      throw new NotFoundResponse(" No todo with id " + id + " was found.");
     }
   }
 
@@ -45,7 +44,7 @@ public class ToDosController {
    * @param ctx a Javalin HTTP context
    */
   public void getToDos(Context ctx) {
-    ToDos[] todo = database.listToDos(ctx.queryParamMap());
-    ctx.json(users);
+    ToDos[] toDos = database.listToDos(ctx.queryParamMap());
+    ctx.json(toDos);
   }
 }
