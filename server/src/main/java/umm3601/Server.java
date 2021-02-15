@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import umm3601.todos.ToDosController;
 import umm3601.user.Database;
 import umm3601.user.UserController;
 
@@ -11,12 +12,15 @@ public class Server {
 
   public static final String CLIENT_DIRECTORY = "../client";
   public static final String USER_DATA_FILE = "/users.json";
+  public static final String TODOS_DATA_FILE = "/todos.json";
+  private static ToDosDatabase toDosDatabase;
   private static Database userDatabase;
 
   public static void main(String[] args) {
 
     // Initialize dependencies
     UserController userController = buildUserController();
+    ToDosController toDosController = buildToDosController();
 
     Javalin server = Javalin.create(config -> {
       // This tells the server where to look for static files,
