@@ -56,13 +56,17 @@ import io.javalin.http.BadRequestResponse;
       //Filter status is defined
       if (queryParams.containsKey("status")) {
         String targetStatus = queryParams.get("status").get(0);
-        if (targetStatus.equals("complete")){
-          targetStatus = "true";
-        } else if (targetStatus.equals("incomplete")) {
-          targetStatus = "false";
+        try {
+          if (targetStatus.equals("complete")){
+            targetStatus = "true";
+          } else if (targetStatus.equals("incomplete")) {
+            targetStatus = "false";
+          }
+          Boolean newTargetStatus = Boolean.parseBoolean(targetStatus);
+          filteredToDos = filterToDosByStatus(filteredToDos, newTargetStatus);
+        } catch (IllegalArgumentException e) {
+          throw new BadRequestResponse("Specified boolean " + targetStatus + " can't be parsed.");
         }
-        Boolean newTargetStatus = Boolean.parseBoolean(targetStatus);
-        filteredToDos = filterToDosByStatus(filteredToDos, newTargetStatus);
       }
 
       //Limit request
