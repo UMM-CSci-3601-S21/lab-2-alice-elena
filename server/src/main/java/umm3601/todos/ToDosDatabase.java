@@ -55,9 +55,9 @@ import io.javalin.http.BadRequestResponse;
       //Filter status is defined
       if (queryParams.containsKey("status")) {
         String targetStatus = queryParams.get("status").get(0);
-        if (targetStatus=="complete"){
+        if (targetStatus.equals("complete")){
           targetStatus = "true";
-        } else if (targetStatus == "incomplete") {
+        } else if (targetStatus.equals("incomplete")) {
           targetStatus = "false";
         }
         Boolean newTargetStatus = Boolean.parseBoolean(targetStatus);
