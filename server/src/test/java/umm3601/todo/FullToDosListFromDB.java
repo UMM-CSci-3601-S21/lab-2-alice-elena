@@ -11,7 +11,7 @@ import umm3601.todos.ToDos;
 import umm3601.todos.ToDosDatabase;
 
 /**
- * Tests umm3601.user.Database listToDo functionality
+ * Tests umm3601.todo.ToDosDatabase listToDo functionality
  */
 public class FullToDosListFromDB {
 

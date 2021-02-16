@@ -10,7 +10,7 @@ import umm3601.todos.ToDos;
 import umm3601.todos.ToDosDatabase;
 
 /**
- * Tests umm3601.user.Database getUser functionality
+ * Tests umm3601.todo.ToDosDatabase getToDo functionality
  */
 public class GetToDoByIDFromDB {
 
