@@ -154,6 +154,7 @@ public class ToDosControllerSpec {
 
     when(ctx.queryParamMap()).thenReturn(queryParams);
     toDosController.getToDos(ctx);
+  }
 
   //   // Confirm that all the todos passed to `json` work for Blanche,
   //   // have status complete and the limit that the server will return is 7 todos.
