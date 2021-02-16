@@ -67,17 +67,6 @@ import io.javalin.http.BadRequestResponse;
           }
       }
 
-      //Limit request
-      if (queryParams.containsKey("limit")) {
-        String limitParam = queryParams.get("limit").get(0);
-        try {
-          int targetLimit = Integer.parseInt(limitParam);
-          filteredToDos = filterToDosByLimit(filteredToDos, targetLimit);
-        } catch (NumberFormatException e) {
-          throw new BadRequestResponse("Specified limit '" + limitParam + "' can't be parsed to an integer");
-        }
-      }
-
       //Filter body is defined
       if (queryParams.containsKey("contains")) {
         String targetBody = queryParams.get("contains").get(0);
@@ -101,6 +90,17 @@ import io.javalin.http.BadRequestResponse;
       if (queryParams.containsKey("orderBy")) {
         String targetOrderBy = queryParams.get("orderBy").get(0);
         filteredToDos = sortToDosByOrderBy(filteredToDos, targetOrderBy);
+      }
+
+      //Limit request
+      if (queryParams.containsKey("limit")) {
+        String limitParam = queryParams.get("limit").get(0);
+        try {
+          int targetLimit = Integer.parseInt(limitParam);
+          filteredToDos = filterToDosByLimit(filteredToDos, targetLimit);
+        } catch (NumberFormatException e) {
+          throw new BadRequestResponse("Specified limit '" + limitParam + "' can't be parsed to an integer");
+        }
       }
 
       return filteredToDos;
