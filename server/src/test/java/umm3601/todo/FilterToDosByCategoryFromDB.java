@@ -15,7 +15,7 @@ import umm3601.todos.ToDos;
 import umm3601.todos.ToDosDatabase;
 
 /**
- * Tests umm3601.user.Database filterUsersByAge and listUsers with _age_ query
+ * Tests umm3601.user.Database filterToDosByCategory and listToDos with _category_ query
  * parameters
  */
 public class FilterToDosByCategoryFromDB {
