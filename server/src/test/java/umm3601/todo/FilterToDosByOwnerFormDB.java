@@ -15,7 +15,7 @@ import umm3601.todos.ToDos;
 import umm3601.todos.ToDosDatabase;
 
 /**
- * Tests umm3601.user.Database filterToDosByOwner and listToDos with _owner_ query
+ * Tests umm3601.todo.ToDosDatabase filterToDosByOwner and listToDos with _owner_ query
  * parameters
  */
 public class FilterToDosByOwnerFormDB {
