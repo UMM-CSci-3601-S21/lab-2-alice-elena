@@ -1,6 +1,7 @@
 package umm3601.todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale.Category;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -170,15 +172,4 @@ public class ToDosControllerSpec {
       toDosController.getToDo(ctx);
     });
   }
-
-  //   // Confirm that all the todos passed to `json` work for Blanche,
-  //   // have status complete and the limit that the server will return is 7 todos.
-  //   ArgumentCaptor<ToDos[]> argument = ArgumentCaptor.forClass(ToDos[].class);
-  //   verify(ctx).json(argument.capture());
-  //   for (ToDos todo : argument.getValue()) {
-  //     assertEquals("Blanche", todo.owner);
-  //     assertEquals("complete", todo.status);
-  //   }
-  //   assertEquals(7, argument.getValue().length);
-  // }
 }
