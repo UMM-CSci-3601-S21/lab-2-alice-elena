@@ -156,6 +156,21 @@ public class ToDosControllerSpec {
     toDosController.getToDos(ctx);
   }
 
+  @Test
+  public void GET_to_request_todos_with_existent_id() throws IOException {
+    when(ctx.pathParam("id", String.class)).thenReturn(new Validator<String>("58895985a22c04e761776d54", "", "id"));
+    toDosController.getToDo(ctx);
+    verify(ctx).status(201);
+  }
+
+  @Test
+  public void GET_to_request_todo_with_nonexistent_id() throws IOException {
+    when(ctx.pathParam("id", String.class)).thenReturn(new Validator<String>("nonexistent", "", "id"));
+    Assertions.assertThrows(NotFoundResponse.class, () -> {
+      toDosController.getToDo(ctx);
+    });
+  }
+
   //   // Confirm that all the todos passed to `json` work for Blanche,
   //   // have status complete and the limit that the server will return is 7 todos.
   //   ArgumentCaptor<ToDos[]> argument = ArgumentCaptor.forClass(ToDos[].class);
